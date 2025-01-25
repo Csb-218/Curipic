@@ -11,6 +11,9 @@ module.exports = {
       },
       tag_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        unique:false,
+        primaryKey:false,
         references: {
           model: 'tags',
           key: 'id'
@@ -19,6 +22,9 @@ module.exports = {
       },
       photo_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        unique:false,
+        primaryKey:false,
         references: {
           model: 'photos',
           key: 'id'
