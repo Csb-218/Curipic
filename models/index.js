@@ -6,19 +6,26 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.js')[env];
+
+const config = require(path.join(__dirname, '../config/config.js'))[env];
 const db = {};
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, {
+
+
+if (!config) {
+  throw new Error('Configuration not found for environment: ' + env);
+}
+
+if (!config.database || !config.username || !config.password) {
+  throw new Error('Database configuration is incomplete: ' + JSON.stringify(config));
+}
+
+let sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
     dialect: config.dialect,
     port: config.port,
   });
-}
+
 
 fs
   .readdirSync(__dirname)
@@ -32,6 +39,7 @@ fs
   })
   .forEach(file => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+
     db[model.name] = model;
   });
 
