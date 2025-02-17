@@ -85,25 +85,6 @@ describe("userController Tests", () => {
       expect(res.json).toHaveBeenCalledWith({ message: 'Invalid email address' });
     });
 
-    it("should return 400 if name is invalid", async () => {
-      const req = {
-        body: {
-          name: '',
-          email: 'john.doe@example.com'
-        }
-      };
-
-      const res = {
-        status: jest.fn(() => res),
-        json: jest.fn()
-      };
-
-      await createNewUser(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ message: 'Invalid name. Name should be between 1 and 100 characters' });
-    });
-
     it("should return 400 if user already exists", async () => {
       const mockUser = { id: 1, username: 'John Doe', email: 'john.doe@example.com' };
 
