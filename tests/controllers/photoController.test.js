@@ -121,7 +121,6 @@ describe("photoController Tests", () => {
         });
     })
 
-
     describe("savePhoto", () => {
 
         beforeEach(async () => {
@@ -458,7 +457,7 @@ describe("photoController Tests", () => {
         });
     });
 
-  describe("searchByTag", () => {
+    describe("searchByTag", () => {
 
     beforeEach(async () => {
 
@@ -612,7 +611,7 @@ describe("photoController Tests", () => {
       expect(res.json).toHaveBeenCalledWith({ "error message": "Internal Server Error" });
     });
 
-  });
+    });
 
     
 
