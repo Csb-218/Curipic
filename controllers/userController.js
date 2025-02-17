@@ -1,5 +1,6 @@
 const db = require('../models');
 const { sequelize } = db
+const {isValidEmail,isValidName} = require('../utils/helpers')
 
 const {
     user: userModel,
@@ -38,14 +39,6 @@ const createNewUser = async(req, res) => {
     
 }
 
-const isValidEmail = (email) => {
-    const emailRegex = /\S+@\S+\.\S+/
-    return emailRegex.test(email)
-}
-
-const isValidName = (name) => {
-    return name.length > 1 && name.length < 100
-}
 
 const doesUserExist = async (email) => {
     const user = await userModel.findOne({ where: { email: email } })
